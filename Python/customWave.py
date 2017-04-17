@@ -57,11 +57,13 @@ STDp = np.sqrt(Ep2 - Ep**2)
 
 print("Uncertainty principle holds: " + str((STDx*STDp > 0.5).all()))
 
+# Animate the wave using matplotlib
+
 def animate(i):
   line.set_data(x, np.abs(Psi(cn, x, t[i])))
   annotation.xy = (Ex[i], -1)
   annotation.set_position((Ex[i], -0.7))
-  return line, annotation
+  return line, annotation # We have to return all the objects we change
   
 fig = plt.figure()
 ax = plt.axes(xlim = (0, 1), ylim = (-1, 2))
@@ -74,6 +76,7 @@ anim = animation.FuncAnimation(fig, animate, frames = 256, interval = 20, blit =
 
 #plt.show()
 
+# Use numpngw to make an animated png from the matplotlib animation
 writer = AnimatedPNGWriter(fps=30)
 
 anim.save("customWave.png", dpi = 100, writer=writer)
