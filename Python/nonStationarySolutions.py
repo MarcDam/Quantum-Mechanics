@@ -33,17 +33,20 @@ STDx = np.sqrt(Ex2 - Ex**2)
 
 def animate(i):
   line.set_data(x, np.abs(Psi(cn, x, t[i])))
-  annotation1 = ax.annotate(r"$\langle x \rangle$", xy = (Ex[i], -1), xytext = (Ex[i], -0.7), arrowprops = dict(facecolor = "black", shrink = 0.05), )
-  return line, annotation1
+  annotation.xy = (Ex[i], -1)
+  annotation.set_position((Ex[i], -0.7))
+  return line, annotation
   
 fig = plt.figure()
 ax = plt.axes(xlim = (0, 1), ylim = (-1, 2))
 
 line, = plt.plot([], [], lw = 2)
-  
+
+annotation = ax.annotate(r"$\langle x \rangle$", xy = (Ex[0], -1), xytext = (Ex[0], -0.7), arrowprops = dict(facecolor = "black", shrink = 0.05), )
+
 anim = animation.FuncAnimation(fig, animate, frames = 256, interval = 20, blit = True)
 
-#plt.show()
+plt.show()
 
 writer = AnimatedPNGWriter(fps=30)
 
