@@ -22,8 +22,8 @@ if integral == 1:
 else:
   print("Wave function is not normalized. Integral is " + str(integral))
 
-Ex = ExT = Ex2 = STDx = np.zeros(t.shape)
-ExT = 1/2-16/(9*np.pi**2)*np.cos(3*np.pi**2/2*t)
+Ex = np.zeros(t.shape)
+Ex2 = np.zeros(t.shape)
 
 for i in range(0, len(t)):
   Ex[i] = np.trapz(x*(np.abs(Psi(cn, x, t[i]))**2), x = x)
@@ -34,8 +34,7 @@ STDx = np.sqrt(Ex2 - Ex**2)
 def animate(i):
   line.set_data(x, np.abs(Psi(cn, x, t[i])))
   annotation1 = ax.annotate(r"$\langle x \rangle$", xy = (Ex[i], -1), xytext = (Ex[i], -0.7), arrowprops = dict(facecolor = "black", shrink = 0.05), )
-  annotation2 = ax.annotate(r"$\langle x \rangle$", xy = (ExT[i], -1), xytext = (ExT[i], -0.7), arrowprops = dict(facecolor = "red", shrink = 0.05), )
-  return line, annotation1, annotation2
+  return line, annotation1
   
 fig = plt.figure()
 ax = plt.axes(xlim = (0, 1), ylim = (-1, 2))
