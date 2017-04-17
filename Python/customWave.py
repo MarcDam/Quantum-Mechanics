@@ -8,11 +8,19 @@ from numpngw import AnimatedPNGWriter
 
 # Import the wave function and the function to calculate cn by Fourier's trick
 from Psi import *
+from getcn import *
 
-cn = 1/np.sqrt(2)*np.array([1, 1])
-  
 x = np.linspace(0, 1, 256)
 t = np.linspace(0, 4/(np.pi), 256)
+
+# Normalize the custom wave function and get the cn's
+fun = x**3 * (1 - x)
+
+A = 1/np.sqrt(np.trapz(np.abs(fun)**2, x = x))
+
+fun = A * fun
+
+cn = getcn(x, fun)
 
 # Check normalization
 
@@ -64,8 +72,8 @@ annotation = ax.annotate(r"$\langle x \rangle$", xy = (Ex[0], -1), xytext = (Ex[
 
 anim = animation.FuncAnimation(fig, animate, frames = 256, interval = 20, blit = True)
 
-plt.show()
+#plt.show()
 
-#writer = AnimatedPNGWriter(fps=30)
+writer = AnimatedPNGWriter(fps=30)
 
-#anim.save("nonStationaryModulus.png", dpi = 100, writer=writer)
+anim.save("customWave.png", dpi = 100, writer=writer)
