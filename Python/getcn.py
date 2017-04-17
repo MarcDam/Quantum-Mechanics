@@ -26,6 +26,6 @@ def getcn(x, f, epsilon = 10**(-12), n = 0):
   if n == 0:
     print("Required " + str(len(cn)) + " cn's to get below " + str(epsilon) + " error")
   else:
-    print("cn's have norm " + str(np.sum(np.abs(cn)**2))
+    print("cn's have norm " + str(np.sum(np.abs(cn)**2)))
       
   return cn

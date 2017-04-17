@@ -63,7 +63,8 @@ def animate(i):
   line.set_data(x, np.abs(Psi(cn, x, t[i])))
   annotation.xy = (Ex[i], -1)
   annotation.set_position((Ex[i], -0.7))
-  return line, annotation # We have to return all the objects we change
+  title.set_text("t = " + str(t[i]))
+  return line, annotation, title # We have to return all the objects we change
   
 fig = plt.figure()
 ax = plt.axes(xlim = (0, 1), ylim = (-1, 2))
@@ -72,9 +73,11 @@ line, = plt.plot([], [], lw = 2)
 
 annotation = ax.annotate(r"$\langle x \rangle$", xy = (Ex[0], -1), xytext = (Ex[0], -0.7), arrowprops = dict(facecolor = "black", shrink = 0.05), )
 
+title = plt.title("")
+
 anim = animation.FuncAnimation(fig, animate, frames = 256, interval = 20, blit = True)
 
-#plt.show()
+plt.show()
 
 # Use numpngw to make an animated png from the matplotlib animation
 writer = AnimatedPNGWriter(fps=30)
