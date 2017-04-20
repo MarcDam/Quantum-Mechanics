@@ -10,7 +10,7 @@ from numpngw import AnimatedPNGWriter
 from Psi import *
 from getcn import *
 
-x = np.linspace(0, 1, 2**12)
+x = np.linspace(0, 1, 2**10)
 t = np.linspace(0, 1/(np.pi), 2**13)
 
 # Wave package constants
@@ -44,12 +44,12 @@ for i in range(0, len(t)):
   f.append(Psi(cn, x, t[i]))
 
 # Calculate the momentum spectrum
-p = np.linspace(0, 200, 2**7)
+p = np.linspace(0, 200, 2**10)
 pdist = []
 
 for i in range(0, len(t)):
-  if i % 2**9 == 0:
-    print(i)
+  if i % 2**8 == 0:
+    print("%.2f" %(i/len(t)))
     
   tmp = np.zeros(p.shape)
   for j in range(0, len(p)):
