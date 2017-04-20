@@ -66,7 +66,7 @@ for i in range(0, len(t)):
   
 STDp = np.sqrt(Ep2 - Ep**2)
 
-print("Uncertainty principle holds: " + str((STDx*STDp > 0.5).all()))
+print("Uncertainty principle holds: " + str((STDx*STDp >= 0.5).all()))
 
 # Animate the wave using matplotlib
 

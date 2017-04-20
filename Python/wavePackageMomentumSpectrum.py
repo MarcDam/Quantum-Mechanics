@@ -11,12 +11,12 @@ from Psi import *
 from getcn import *
 
 x = np.linspace(0, 1, 2**12)
-t = np.linspace(0, 4/(np.pi), 2**13)
+t = np.linspace(0, 1/(np.pi), 2**13)
 
 # Wave package constants
-x0 = 0.5;
-sigma = 0.1;
-k0 = 100;
+x0 = 0.5
+sigma = 0.1
+k0 = 100
 
 # Normalize the custom wave function and get the cn's
 fun = np.exp(-1/2 * (x-x0)**2/sigma**2) * np.exp(-1j*k0*x)
@@ -44,10 +44,13 @@ for i in range(0, len(t)):
   f.append(Psi(cn, x, t[i]))
 
 # Calculate the momentum spectrum
-p = np.linspace(0, 400, 2**8)
+p = np.linspace(0, 200, 2**7)
 pdist = []
 
 for i in range(0, len(t)):
+  if i % 2**9 == 0:
+    print(i)
+    
   tmp = np.zeros(p.shape)
   for j in range(0, len(p)):
     tmp[j] = np.trapz(np.conj(1/np.sqrt(2*np.pi)*np.exp(1j*p[j]*x))*f[i], x = x)
@@ -69,11 +72,11 @@ line, = plt.plot([], [], lw = 2)
 
 title = plt.title("")
 
-anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 50, blit = True)
+anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, blit = True)
 
 plt.show()
 
-anim.save("wavePackageMomentumSpectrum.webm", writer="ffmpeg", fps = 30, codec="vp9")
+anim.save("wavePackageMomentumSpectrum.mp4", writer="ffmpeg", fps = 30, codec="h264")
 
 ### MEMORY ISSUES ###
 # Use numpngw to make an animated png from the matplotlib animation
