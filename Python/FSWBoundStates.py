@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def hFunEven(z):
-  return np.tan(z) - np.sqrt(z0/z - 1)
+  return np.tan(z) - np.sqrt((z0/z)**2 - 1)
   
 def hFunOdd(z):
-  return -1/np.tan(z) - np.sqrt(z0/z - 1)
+  return -1/np.tan(z) - np.sqrt((z0/z)**2 - 1)
   
 hfuns = [hFunEven, hFunOdd]
 guesses = [(1, 0.5), (2, 1)]
@@ -29,7 +29,7 @@ plt.show()
 print("Newton's method:")
 
 accuracy = 10**(-6)
-guess = 1
+guess = np.pi/2-0.1
 roots = []
 
 while guess < z0:
