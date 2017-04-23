@@ -7,15 +7,21 @@ def hFunEven(z):
 def hFunOdd(z):
   return -1/np.tan(z) - np.sqrt((z0/z)**2 - 1)
   
+def dhdzFunEven(z):
+ return 1/(np.cos(z))**2 + z0**2/(np.sqrt((z0/z)**2-1)*z**3)
+ 
+def dhdzFunOdd(z):
+  return 1/(np.sin(z))**2 + z0**2/(np.sqrt((z0/z)**2-1)*z**3)
+  
 hfuns = [hFunEven, hFunOdd]
-guesses = [(1, 0.5), (2, 1)]
+dhdzfuns = [dhdzFunEven, dhdzFunOdd]
 
 z0 = np.sqrt(2*13)
 
 z = np.linspace(1, z0, 10**6)
 
 h = hFunEven(z)
-dhdzA = 1/(np.cos(z))**2 + z0/(2*np.sqrt(z0/z-1)*z**2) # Analytical expression for the derivative
+dhdzA = dhdzFunEven(z) # Analytical expression for the derivative
 dz = z[1] - z[0]
 dhdzN = np.gradient(h, dz) # Numerical calculation of the derivatve
 
@@ -28,23 +34,33 @@ plt.show()
 
 print("Newton's method:")
 
-accuracy = 10**(-6)
-guess = np.pi/2-0.1
-roots = []
+niter = 10**4
+guesses = [(np.pi/2 - 0.1, np.pi), (np.pi - 0.1, 2)]
+newtonRoots = []
 
-while guess < z0:
-  zi = zinext = guess
-  
-  while abs(zi - zinext) < accuracy:
-    zi = zinext
-    zinext = zi - (hFunEven(zi))/(1/(np.cos(zi))**2 + z0/(2*np.sqrt(z0/zi-1)*zi**2))
+for i, hfun in enumerate(hfuns):
+  print("i = " + str(i))
     
-  roots.append(zinext)
-  guess = zinext + np.pi
+  guess = guesses[i][0]
+  newtonRoots.append([])
+  dhdz = dhdzfuns[i]
+
+  while guess < z0:
+    zi = guess
     
-  print(zinext)
+    for j in range(niter):
+      zi = zi - hfun(zi)/dhdz(zi)
+      
+    newtonRoots.append(zi)
+    guess = zi + guesses[i][1]
+      
+    print(zi)
   
 # Bisection method
+
+accuracy = 10**(-6)
+guesses = [(1, 0.5), (2, 1)]
+bisecRoots = []
 
 print("Bisection method:")
   
@@ -52,7 +68,7 @@ for i, hfun in enumerate(hfuns):
   print("i = " + str(i))
     
   guess = guesses[i][0]
-  bisecRoots = []
+  bisecRoots.append([])
     
   while guess < z0:
     a = guess - guesses[i][1]
@@ -81,6 +97,6 @@ for i, hfun in enumerate(hfuns):
     
     if root:
       print(a)
-      bisecRoots.append(a)
+      bisecRoots[i].append(a)
     guess = a + 2*guesses[i][1]
     

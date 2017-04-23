@@ -11,7 +11,7 @@ from Psi import *
 from getcn import *
 
 x = np.linspace(0, 1, 2**10)
-t = np.linspace(0, 1/(2*(np.pi)), 2**10)
+t = np.linspace(0, 4/(np.pi), 2**13)
 
 # Wave package constants
 x0 = 0.5
@@ -44,7 +44,7 @@ for i in range(0, len(t)):
   f.append(Psi(cn, x, t[i]))
 
 # Calculate the momentum spectrum
-p = np.linspace(-200, 200, 2**8)
+p = np.linspace(-200, 200, 2**10)
 pdist = []
 
 for i in range(0, len(t)):
@@ -76,7 +76,7 @@ anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, bli
 
 plt.show()
 
-anim.save("wavePackageMomentumSpectrumLowRes.mp4", writer="ffmpeg", fps = 30, codec="h264")
+anim.save("wavePackageMomentumSpectrum.webm", writer="ffmpeg", fps = 30, codec="vp9")
 
 ### MEMORY ISSUES ###
 # Use numpngw to make an animated png from the matplotlib animation
