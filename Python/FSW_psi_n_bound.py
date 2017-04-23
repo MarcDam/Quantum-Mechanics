@@ -1,18 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-A = 1
-
-# NB! Stationary states are not normalized
-
 def psi_n_even(n, x):
   k = np.sqrt(-2*energies["even"][n])
   l = np.sqrt(2*(energies["even"][n] + V0))
+  A = np.exp(k)*1/(np.sqrt(1/k+1/(np.cos(l))**2 + np.tan(l)))
   return np.piecewise(x, [x > 1, 1 >= x, -1 > x], [lambda x: A*np.exp(-k*x), lambda x: A*np.exp(-k)/(np.cos(l))*np.cos(l*x), lambda x: A*np.exp(k*x)])
 
 def psi_n_odd(n, x):
   k = np.sqrt(-2*energies["odd"][n])
   l = np.sqrt(2*(energies["odd"][n] + V0))
+  A = np.exp(k)*1/(np.sqrt(1/k+1/(np.sin(l))**2 - 1/np.tan(l)))
   return np.piecewise(x, [x > 1, np.logical_and(1 >= x, x >= -1), -1 > x], [lambda x: A*np.exp(-k*x), lambda x: A*np.exp(-k)/(np.sin(l))*np.sin(l*x), lambda x: -A*np.exp(k*x)])
   
 def energy(n):
