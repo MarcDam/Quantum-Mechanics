@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def psi_n_even(n, x):
   k = np.sqrt(-2*energies["even"][n])
@@ -88,13 +88,13 @@ for key in energies:
 
 # Plot the bound states
 
-x = np.linspace(-2, 2, 200)
-    
-for i in range(0, len(energies["even"])):
-  plt.plot(x, psi_n_even(i, x), label = "Even: " + str(i))
-  
-for i in range(0, len(energies["odd"])):
-  plt.plot(x, psi_n_odd(i, x), label = "Odd: " + str(i))
-  
-plt.legend()
-plt.show()
+#x = np.linspace(-2, 2, 200)
+#    
+#for i in range(0, len(energies["even"])):
+#  plt.plot(x, psi_n_even(i, x), label = "Even: " + str(i))
+#  
+#for i in range(0, len(energies["odd"])):
+#  plt.plot(x, psi_n_odd(i, x), label = "Odd: " + str(i))
+#  
+#plt.legend()
+#plt.show()
