@@ -1,6 +1,19 @@
 import numpy as np
 #import matplotlib.pyplot as plt
 
+def psi_n(n, x):
+  E = energiesOrdered[n]
+  
+  if E[1] == "even":
+    i = energies["even"].index(E[0])
+
+    return psi_n_even(i, x)
+    
+  else:
+    i = energies["odd"].index(E[0])
+    
+    return psi_n_odd(i, x)
+
 def psi_n_even(n, x):
   k = np.sqrt(-2*energies["even"][n])
   l = np.sqrt(2*(energies["even"][n] + V0))

@@ -8,7 +8,7 @@ def Psi(cn, x, t):
   except AttributeError:
     output = 0
     
-  for i, ci in enumerate(cn, 1):
+  for i, ci in enumerate(cn):
     output += ci*Psi_n(i, x, t)
   
   return output
