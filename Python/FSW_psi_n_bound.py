@@ -1,5 +1,5 @@
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 def psi_n(n, x):
   E = energiesOrdered[n]
@@ -101,13 +101,18 @@ for key in energies:
 
 # Plot the bound states
 
-#x = np.linspace(-2, 2, 200)
-#    
-#for i in range(0, len(energies["even"])):
-#  plt.plot(x, psi_n_even(i, x), label = "Even: " + str(i))
-#  
-#for i in range(0, len(energies["odd"])):
-#  plt.plot(x, psi_n_odd(i, x), label = "Odd: " + str(i))
-#  
+x = np.linspace(-2, 2, 200)
+    
+for i in range(0, len(energies["even"])):
+  plt.plot(x, energies["even"][i] + psi_n_even(i, x), label = "Even, energy: " + str(energies["even"][i] ))
+  
+for i in range(0, len(energies["odd"])):
+  plt.plot(x, energies["odd"][i] + psi_n_odd(i, x), label = "Odd, energy: " + str(energies["odd"][i] ))
+  
+plt.plot(x, np.piecewise(x, [x > 1, np.logical_and(1 >= x, x >= -1), -1 > x], [0, -V0, 0]))
+plt.ylim(-V0-1, 1)
+plt.xlabel("$x/a$")
+plt.ylabel("$\psi(x)$")
 #plt.legend()
 #plt.show()
+plt.savefig("FSW_boundStates.png")
