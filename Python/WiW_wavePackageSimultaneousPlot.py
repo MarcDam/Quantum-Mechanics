@@ -9,8 +9,8 @@ from matplotlib.lines import Line2D
 from WiW_Psi import *
 from WiW_getcn import *
 
-x = np.linspace(-3, 3, 2**11)
-t = np.linspace(0, 0.03, 2**11)
+x = np.linspace(-3, 3, 2**12)
+t = np.linspace(0, 4/np.pi, 2**13)
 
 # Wave package constants
 x0 = 2.5;
@@ -136,4 +136,4 @@ anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, bli
 
 #plt.show()
 
-anim.save("WiW_wavePackageSimultaneousPlotLowRes.mp4", writer="ffmpeg", fps = 30, codec="h264", dpi=100)
+anim.save("WiW_wavePackageSimultaneousPlot.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
