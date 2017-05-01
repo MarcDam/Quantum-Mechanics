@@ -10,7 +10,7 @@ from WiW_Psi import *
 from WiW_getcn import *
 
 x = np.linspace(-3, 3, 2**11)
-t = np.linspace(0, 0.03, 2**11)
+t = np.linspace(0, 0.06, 2**12)
 
 # Wave package constants
 x0 = 2.5;
