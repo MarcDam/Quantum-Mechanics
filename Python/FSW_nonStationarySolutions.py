@@ -7,10 +7,10 @@ import matplotlib.animation as animation
 # Import the wave function
 from FSW_Psi_bound import *
 
-cn = 1/np.sqrt(2)*np.array([1, 1])
+cn = 1/np.sqrt(3)*np.array([1, 1, 1, 1])
   
 x = np.linspace(-2, 2, 256)
-t = np.linspace(0, 10, 2**13)
+t = np.linspace(0, 10, 2**11)
 
 # Check normalization
 
