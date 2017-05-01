@@ -174,13 +174,13 @@ The wave functions representing bound stationary states take the form
 \begin{equation}
 \psi_{even}(x) = \begin{cases} A e^{-\sqrt{-2 E} x}, & 1 < x \\
                                A \frac{e^{-\sqrt{-2 E}}}{\cos \sqrt{2(E + V_0)}} \cos \left( \sqrt{2(E + V_0)} x \right), & -1 \leq x \leq 1 \\
-                               A e^{-\sqrt{-2 E} x}, & x < -1 \end{cases}
+                               A e^{\sqrt{-2 E} x}, & x < -1 \end{cases}
 \end{equation}
 and
 \begin{equation}
 \psi_{odd}(x) = \begin{cases} A e^{-\sqrt{-2 E} x}, & 1 < x \\
                               A \frac{e^{-\sqrt{-2 E}}}{\sin \sqrt{2(E + V_0)}} \sin \left( \sqrt{2(E + V_0)} x \right), & -1 \leq x \leq 1 \\
-                              -A e^{-\sqrt{-2 E} x}, & x < -1 \end{cases}.
+                              -A e^{\sqrt{-2 E} x}, & x < -1 \end{cases}.
 \end{equation}
 These equations along with equation~\eqref{eq:evenEnergy} and equation~\eqref{eq:oddEnergy} in reduced units is what will form the basis of our numerical investigations of the infinite and finite square well.
 
