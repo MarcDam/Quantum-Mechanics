@@ -15,7 +15,7 @@ t = np.linspace(0, 4/np.pi, 2**13)
 # Wave package constants
 x0 = 2.5;
 sigma = 0.1;
-k0 = 100;
+k0 = 25;
 
 # Normalize the custom wave function and get the cn's
 fun = np.exp(-1/2 * (x-x0)**2/sigma**2) * np.exp(-1j*k0*x)
@@ -136,4 +136,4 @@ anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, bli
 
 #plt.show()
 
-anim.save("WiW_wavePackageSimultaneousPlot.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
+anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
