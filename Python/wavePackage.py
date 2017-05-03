@@ -11,7 +11,7 @@ from Psi import *
 from getcn import *
 
 x = np.linspace(0, 1, 2**12)
-t = np.linspace(0, 4/(np.pi), 2**13)
+t = np.linspace(0, 1/(2*np.pi), 2**10)
 
 # Wave package constants
 x0 = 0.5;
@@ -74,8 +74,10 @@ def animate(i):
   line.set_data(x, np.abs(f[i]))
   annotation.xy = (Ex[i], -1)
   annotation.set_position((Ex[i], -0.7))
+  annotationSTDx.xy = (Ex[i] - STDx[i], -1)
+  annotationSTDx.set_position((Ex[i] + STDx[i], -1))
   title.set_text("t = " + str(t[i]))
-  return line, annotation, title # We have to return all the objects we change
+  return line, annotation, annotationSTDx, title # We have to return all the objects we change
   
 fig = plt.figure()
 ax = plt.axes(xlim = (0, 1), ylim = (-1, 3))
@@ -83,14 +85,15 @@ ax = plt.axes(xlim = (0, 1), ylim = (-1, 3))
 line, = plt.plot([], [], lw = 2)
 
 annotation = ax.annotate(r"$\langle x \rangle$", xy = (Ex[0], -1), xytext = (Ex[0], -0.7), arrowprops = dict(facecolor = "black", shrink = 0.05), )
+annotationSTDx = ax.annotate("", xy = (Ex[0] - STDx[0], -1), xytext = (Ex[0] + STDx[0], -1), arrowprops = dict(arrowstyle="|-|"))
 
 title = plt.title("")
 
 anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, blit = True)
 
-#plt.show()
+plt.show()
 
-anim.save("wavePackage.webm", writer="ffmpeg", fps = 30, codec="vp9")
+#anim.save("1wavePackage.webm", writer="ffmpeg", fps = 30, codec="vp9")
 
 ### MEMORY ISSUES ###
 # Use numpngw to make an animated png from the matplotlib animation

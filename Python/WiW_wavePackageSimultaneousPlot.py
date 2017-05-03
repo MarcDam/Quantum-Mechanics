@@ -90,6 +90,8 @@ def animate(i):
   line1.set_data(x, np.abs(f[i]))
   annotation1.xy = (Ex[i], -1)
   annotation1.set_position((Ex[i], -0.7))
+  annotationSTDx.xy = (Ex[i] - STDx[i], -1)
+  annotationSTDx.set_position((Ex[i] + STDx[i], -1))
   
   # Momentum spectrum
   line2.set_data(p, np.abs(pdist[i])**2)
@@ -98,7 +100,7 @@ def animate(i):
   annotation3.xy = (t[i], (STDx*STDp)[i])
   annotation3.set_position((t[i], (STDx*STDp)[i] + 0.5))
   
-  return line1, annotation1, line2, annotation3, title # We have to return all the objects we change
+  return line1, annotation1, annotationSTDx, line2, annotation3, title # We have to return all the objects we change
   
 fig = plt.figure()
 ax3 = fig.add_subplot(2, 1, 2) # The uncertainty principle
@@ -114,6 +116,7 @@ ax1.set_xlabel("$x/a$")
 ax1.set_xlim(x[0], x[-1])
 ax1.set_ylim(-1, 3)
 annotation1 = ax1.annotate(r"$\langle x \rangle$", xy = (Ex[0], -1), xytext = (Ex[0], -0.7), arrowprops = dict(facecolor = "black", shrink = 0.05), )
+annotationSTDx = ax1.annotate("", xy = (Ex[0] - STDx[0], -1), xytext = (Ex[0] + STDx[0], -1), arrowprops = dict(arrowstyle="|-|"))
 
 # Momentum spectrum
 line2 = Line2D([], [])
