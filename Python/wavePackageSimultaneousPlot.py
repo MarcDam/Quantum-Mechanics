@@ -96,12 +96,16 @@ def animate(i):
   
   # Momentum spectrum
   line2.set_data(p, np.abs(pdist[i])**2)
+  annotation2.xy = (Ep[i], -0.02)
+  annotation2.set_position((Ep[i], -0.01))
+  annotationSTDp.xy = (Ep[i] - STDp[i], -0.02)
+  annotationSTDp.set_position((Ep[i] + STDp[i], -0.02))
   
   # Uncertainty principle
   annotation3.xy = (t[i], (STDx*STDp)[i])
   annotation3.set_position((t[i], (STDx*STDp)[i] + 0.5))
   
-  return line1, annotation1, annotationSTDx, line2, annotation3, title # We have to return all the objects we change
+  return line1, annotation1, annotationSTDx, line2, annotation2, annotationSTDp annotation3, title # We have to return all the objects we change
   
 fig = plt.figure()
 ax3 = fig.add_subplot(2, 1, 2) # The uncertainty principle
@@ -125,7 +129,9 @@ ax2.set_title("Momentum spectrum")
 ax2.add_line(line2)
 ax2.set_xlabel("$p$")
 ax2.set_xlim(p[0], p[-1])
-ax2.set_ylim(0, 0.10)
+ax2.set_ylim(-0.02, 0.10)
+annotation2 = ax2.annotate(r"$\langle p \rangle$", xy = (Ep[0], -0.02), xytext = (Ep[0], -0.01), arrowprops = dict(facecolor = "black", shrink = 0.05), )
+annotationSTDp = ax2.annotate("", xy = (Ep[0] - STDp[0], -0.02), xytext = (Ep[0] + STDp[0], -0.02), arrowprops = dict(arrowstyle="|-|"))
 
 # Uncertainty principle
 line3, = ax3.semilogy(t, STDx*STDp)
