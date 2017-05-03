@@ -16,6 +16,25 @@
 \usepackage{url}
 \usepackage{todonotes}
 \usepackage{siunitx}
+\usepackage{listings}
+\usepackage{color}
+\lstset{
+  language=Python,
+  keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
+  identifierstyle=\ttfamily,
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
+  showstringspaces=false,
+  basicstyle=\small,
+  numberstyle=\footnotesize,
+  numbers=left,
+  stepnumber=5,
+  numberfirstline=true,
+  breaklines=true,
+  breakatwhitespace=false,
+  frame=single,
+%  morekeywords={sumsq, randi}
+}
 \usepackage{tikz}
 \usetikzlibrary{patterns}
 \renewcommand{\epsilon}{\varepsilon}
@@ -187,21 +206,43 @@ These equations along with equation~\eqref{eq:evenEnergy} and equation~\eqref{eq
 An idealized model of the $\pi$-bond in an ethylene molecule is an infinite square well where the width of the well is the length of a bond. The particle confined in the well then corresponds to an electron confined in a $\pi$-bond. The bond length between the two carbon atoms in ethylene is about $\SI{1.34}{\angstrom}$ and the mass of the electron is about $m_e = \SI{9.109e-31}{\kilo\gram}$. Using these numbers we can make a conversion table (table~\ref{tab:reducedUnits}) which allows us to convert from reduced units in our simulation to the real world example of an electron in a $\pi$-bond in an ethylene molecule.
 
 \section{Numerical Methods}
-Python
+In this section we will introduce the software as well as some of the numerical methods we have used in the process of simulation the potentials and wave packages.
 
-Numpy
+\subsection{The Software}
+In this project we have used Python to numerically simulate a guassian wave package in an infinite square well and in a finite square well inside an infinite square well.
 
-Matplotlib
+Since Python does not have native support for working with matrices we have used the NumPy package. NumPy includes tools for working with matrices and multidimensional arrays as well as tools for doing numerical integration and differentiation.
 
-Trapz
+The function \lstinline{numpy.trapz} does numerical integration with the trapezoidal method which approximates the area under a curve using trapezoids. The function \lstinline{numpy.gradient} does numerical differentiation using a finite difference method.
 
-Gradient
+For plotting we have used the Matplotlib package. We have also used the Matplotlib package for producing the animated videos of the plots.
 
-Newton's method
+\subsection{Root Finding}
+When working with the finite square well we need to do numerical root finding to determine the allowed energies. We use Newton's method to determine the solutions to equation~\eqref{eq:evenEnergy} and equation~\eqref{eq:oddEnergy}.
 
-Code structure
+Newton's method works by repeatedly estimating the root using a linear approximation of the function we wish to find the root of. As always we use a first order Taylor expansion to find a linear approximation. Starting from an initial guess of $x_0$ this gives us the equation
+\begin{equation}
+0 = f(x_0) + f'(x_0)(x - x_0)
+\end{equation}
+If we solve for $x$ we get that
+\begin{equation}
+x = x_0 - \frac{f(x_0)}{f'(x_0)}. \label{eq:newtonNonRecurring}
+\end{equation}
+Since we arrived at this ``root'' by using an approximation we would expect that this ``root'' is also only an an approximation to the real root which we are interested in. Since linear approximations of differentiable functions are more accurate the closer we are to the point around which we approximate, we can get a better estimate of our root by repeating the process. Thus we rewrite equation~\eqref{eq:newtonNonRecurring} as a recurrence relation
+\begin{equation}
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.
+\end{equation}
 
-Fourier's trick (projections)
+We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows:
+\lstinputlisting[firstnumber=53,firstline=53,lastline=73]{../Python/FSW_psi_n_bound.py}
+Here \lstinline{hfuns} is a previously defined list of functions which correspond to equations \eqref{eq:evenEnergy} and \eqref{eq:oddEnergy} with the RHS subtracted from the LHS. The derivatives \lstinline{dhdzfuns} are calculated symbolically since the numerical derivative was erroneous near the singularity of $\tan z$ resp. $\cot z$. As initial guesses we use values slightly below the singularities of $\tan z$ resp. $\cot z$.
+
+\subsection{Code Structure}
+The code for each potential is divided into a number of modules. The lowest level module \verb!psi_n! (named \path{psi_n.py}, \path{FSW_psi_n_bound.py} or \path{WiW_psi_n.py}) contains the wave functions of the time-independent stationary states as well as the energies corresponding to the stationary states. It takes the wave function index $n$ as well as a position array as arguments.
+
+The \verb!psi_n! module is then used in the \verb!Psi_n! module (named \todo[inline]{DO ME!}) which contains the time-depedent wave functions. This module takes a time value as argument in addition to the arguments of the \verb!psi! module.  The \verb!Psi_n! module is then used to construct the general wave function. This is done in the \verb!Psi! module (named \todo[inline]{DO ME!}) which takes a list of coefficients $c_n$ as an argument in addition to the arguments of the \verb!Psi_n! module.
+
+To get the $c_n$'s for an arbitrary wave function we use Fourier's trick to get the projection of the wave function on the stationary states. This is done in the module \verb!getcn! (named \todo[inline]{DO ME!}) which determines the $c_n$'s by numerical integration. The \verb!getcn! module has two different options. It can either determine a fixed number of $c_n$'s or determine enough $c_n$'s to make the sum of the norm squares within an $\epsilon$ of $1$. In the case of the bound states in the finite square well it is not always possible to ensure that the $c_n$'s have the required norm since there is a finite number of bound states in the finite square well.
 
 \section{Numerical Results and Discussions}
 
