@@ -68,7 +68,7 @@ STDp = np.sqrt(Ep2 - Ep**2)
 print("Uncertainty principle holds: " + str((STDx*STDp >= 0.5).all()))
 
 # Calculate the momentum spectrum
-p = np.linspace(-60, 60, 2**8)
+p = np.linspace(-60, 60, 2**9)
 pdist = []
 
 for i in range(0, len(t)):
@@ -143,6 +143,6 @@ title = fig.suptitle("")
 
 anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, blit = False)
 
-plt.show()
+#plt.show()
 
-#anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
+anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
