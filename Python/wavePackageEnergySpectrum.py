@@ -3,7 +3,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from numpngw import AnimatedPNGWriter
 
 # Import the wave function and the function to calculate cn by Fourier's trick
 from Psi import *
