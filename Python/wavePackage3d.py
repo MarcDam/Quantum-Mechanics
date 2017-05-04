@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
-from scipy.integrate import quad
 from numpngw import AnimatedPNGWriter
 
 # Import the wave function and the function to calculate cn by Fourier's trick
@@ -30,8 +29,8 @@ cn = getcn(x, fun)
 
 # Check normalization
 
-f = lambda x: np.conjugate(Psi(cn, x, t[0]))*Psi(cn, x, t[0])
-integral = quad(f, 0, 1)[0]
+f = np.abs(Psi(cn, x, t[0]))**2
+integral = np.trapz(f, x = x)
 
 if integral == 1:
   print("Wave function is normalized")
