@@ -32,8 +32,7 @@
   numberfirstline=true,
   breaklines=true,
   breakatwhitespace=false,
-  frame=single,
-%  morekeywords={sumsq, randi}
+  frame=single
 }
 \usepackage{tikz}
 \usetikzlibrary{patterns}
@@ -56,6 +55,8 @@
 \begin{abstract}
 This report uses numerics to study a Gaussian wave package in an infinite square well and in a finite square well inside an infinite square well. We find that the wave package loses its shape over time although it returns to its initial state eventually and shows periodic behavior.
 \end{abstract}
+
+\tableofcontents
 
 \section{Introduction}
 In this report we will study two different potentials: The infinite square well and the finite square well inside an infinite square well. The infinite square well corresponds to a particle trapped in a box and is an idealized model of an electron trapped in a long organic molecule e.g. $\beta$-carotene. The finite square well is interesting to study since it is possible to find a bound particle outside the well. This differs from the classical behavior where a bound particle can only be found inside the well. The finite square well potential is shown in figure~\ref{fig:finiteSquareWell}. For a figure of the infinite square well just imagine figure~\ref{fig:finiteSquareWell} with inifinitely tall walls.
@@ -286,14 +287,37 @@ The energy spectra shown in figure~\ref{fig:energySpectrumInfinite} and figure~\
 \section{Conclusion}
 We have in this report seen how many of the peculiarities of quantum mechanics can be visualized through the use of numerics in the case of the relatively simple potentials of the infinite and finite square well. We have also seen how the numerics highlights some of the stranger features of the potentials which result from the potentials being idealizations of real world potentials.
 
+\newpage
 \appendix
-\section{Appendix: Code snippets}
+\section{Appendix: Code Snippets}
 This appendix includes some of the interesting excerpts from our code.
-\todo[inline]{Do we need this?}
 \subsection{Newton's Method} \label{app:newton}
 We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows:
 \lstinputlisting[firstnumber=53,firstline=53,lastline=73]{../Python/FSW_psi_n_bound.py}
 Here \lstinline{hfuns} is a previously defined list of functions which correspond to equations \eqref{eq:evenEnergy} and \eqref{eq:oddEnergy} with the RHS subtracted from the LHS. The derivatives \lstinline{dhdzfuns} are calculated symbolically since the numerical derivative was erroneous near the singularities of $\tan z$ and $\cot z$. As initial guesses we use values slightly below the singularities of $\tan z$ and $\cot z$ respectively.
 
-ALL THE CODE!!!!
+\subsection{The Main Script}
+This section will give a bit more detail on the main script in which we simulate the wave package.
+
+\lstinputlisting[firstnumber=12,firstline=12,lastline=13]{../Python/wavePackageSimultaneousPlot.py}
+
+Through experimenting with the code we have found that it is important to have a good resolution in the position array. Likewise we need a good resolution in the time array since the wave functions with higher energies have a small period. We simulate up until $t = \frac{4}{\pi}$ since this is the largest period of any of the wave functions and all the other wave functions have periods which divides this.
+
+\lstinputlisting[firstnumber=15,firstline=15,lastline=32]{../Python/wavePackageSimultaneousPlot.py}
+
+Before we compute the $c_n$'s we normalize the wave package using \lstinline{numpy.trapz} to determine the normalization constant. The default option for the \verb!getcn! module is to calculate $c_n$'s until the square norm of the $c_n$'s is below $10^{-12}$. Because the $c_n$'s have a square norm close to $1$ the integral of the wave function is also close to $1$. In the case of the infinite square well \lstinline{getcn} returns 48 $c_n$'s and the integral has a value of $0.99999999999907341$.
+
+\lstinputlisting[firstnumber=41,firstline=41,lastline=43]{../Python/wavePackageSimultaneousPlot.py}
+
+We calculate the wave function for all times to avoid extra function calls whenever we need the wave function. This saves us calculations when we calculate expected values, calculate the momentum spectrum and animate the wave function.
+
+\lstinputlisting[firstnumber=45,firstline=45,lastline=66]{../Python/wavePackageSimultaneousPlot.py}
+
+We calculate the expected values using the standard integrals. To determine $\pdiff{\Psi}{x}$ we use numerical differentiation with \lstinline{numpy.gradient}.
+
+\lstinputlisting[firstnumber=70,firstline=70,lastline=82]{../Python/wavePackageSimultaneousPlot.py}
+To calculate the momentum distribution we loop over the momentum array because we have to calculate an integral over position space for each point in the momentum spectrum.
+
+The remainder of the code is about 60 to 70 lines of setting up, running and saving the animation. Please note that it can take a long time to encode a four to five minute video at near HD.
+
 \end{document}

@@ -9,7 +9,7 @@ from matplotlib.lines import Line2D
 from Psi import *
 from getcn import *
 
-x = np.linspace(0, 1, 2**11)
+x = np.linspace(0, 1, 2**12)
 t = np.linspace(0, 4/(np.pi), 2**13)
 
 # Wave package constants
