@@ -233,10 +233,7 @@ Since we arrived at this ``root'' by using an approximation we would expect that
 \begin{equation}
 x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.
 \end{equation}
-
-We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows:
-\lstinputlisting[firstnumber=53,firstline=53,lastline=73]{../Python/FSW_psi_n_bound.py}
-Here \lstinline{hfuns} is a previously defined list of functions which correspond to equations \eqref{eq:evenEnergy} and \eqref{eq:oddEnergy} with the RHS subtracted from the LHS. The derivatives \lstinline{dhdzfuns} are calculated symbolically since the numerical derivative was erroneous near the singularities of $\tan z$ and $\cot z$. As initial guesses we use values slightly below the singularities of $\tan z$ and $\cot z$ respectively.
+For the implementation used in our script see the appendix~\ref{app:newton}.
 
 \subsection{Code Structure}
 The code for each potential is divided into a number of modules. The lowest level module \verb!psi_n! (named \path{psi_n.py}, \path{FSW_psi_n_bound.py} and \path{WiW_psi_n.py} respectively) contains the wave functions of the time-independent stationary states as well as the energies corresponding to the stationary states. It takes the wave function index $n$ as well as a position array as arguments.
@@ -289,8 +286,14 @@ The energy spectra shown in figure~\ref{fig:energySpectrumInfinite} and figure~\
 \section{Conclusion}
 We have in this report seen how many of the peculiarities of quantum mechanics can be visualized through the use of numerics in the case of the relatively simple potentials of the infinite and finite square well. We have also seen how the numerics highlights some of the stranger features of the potentials which result from the potentials being idealizations of real world potentials.
 
-\section{Appendix}
+\appendix
+\section{Appendix: Code snippets}
+This appendix includes some of the interesting excerpts from our code.
 \todo[inline]{Do we need this?}
-\todo[inline]{Fix quad}
+\subsection{Newton's Method} \label{app:newton}
+We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows:
+\lstinputlisting[firstnumber=53,firstline=53,lastline=73]{../Python/FSW_psi_n_bound.py}
+Here \lstinline{hfuns} is a previously defined list of functions which correspond to equations \eqref{eq:evenEnergy} and \eqref{eq:oddEnergy} with the RHS subtracted from the LHS. The derivatives \lstinline{dhdzfuns} are calculated symbolically since the numerical derivative was erroneous near the singularities of $\tan z$ and $\cot z$. As initial guesses we use values slightly below the singularities of $\tan z$ and $\cot z$ respectively.
+
 ALL THE CODE!!!!
 \end{document}
