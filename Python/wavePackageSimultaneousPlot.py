@@ -105,7 +105,7 @@ def animate(i):
   annotation3.xy = (t[i], (STDx*STDp)[i])
   annotation3.set_position((t[i], (STDx*STDp)[i] + 0.5))
   
-  return line1, annotation1, annotationSTDx, line2, annotation2, annotationSTDp annotation3, title # We have to return all the objects we change
+  return line1, annotation1, annotationSTDx, line2, annotation2, annotationSTDp, annotation3, title # We have to return all the objects we change
   
 fig = plt.figure()
 ax3 = fig.add_subplot(2, 1, 2) # The uncertainty principle
