@@ -272,19 +272,23 @@ Two snapshots of the wave package in the infinite square well at different times
 
 Our numerical simulations highlight an interesting feature of the infinite square well: If we wait long enough the wave package will eventually return to its initial shape. This happens in our simulations because we are working with the periodic functions sine and cosine. In the real world we would not be able to have an isolated wave package in an infinite square well. Perturbations and interactions from outside the well would break the periodicity and it would be very unlikely for the wave package to assume its initial shape at later times. We would also expect that a real world wave package would not return to a state of minimal uncertainty.
 
+It is worth noting that the wave package in the finite square well inside the infinite square well loses its shape faster than the wave package in the infinite square well. This is consistent with the fact that the wave package in the finite square well inside an infinite square well has a higher energy than the wave package in the infinite square well. The finite square well appearently also does some work in spreading out the wave package and we can see from the video of the wave package in the finite square well inside the infinite square well that the standard deviation of the position of the wave package increases as the wave package passes over the finite square well.
+
 \begin{figure}
-\missingfigure{I need some energy spectrum here please!}
+\includegraphics[width=\textwidth]{../Python/ISW_wavePackageEnergySpectrum.png}
 \caption{Energy spectrum of the wave package in the infinite square well} \label{fig:energySpectrumInfinite}
 \end{figure}
 
 \begin{figure}
-\missingfigure{Could I please some energy?}
+\includegraphics[width=\textwidth]{../Python/WiW_wavePackageEnergySpectrum.png}
 \caption{Energy spectrum of the wave package in the finite square well} \label{fig:energySpectrumFinite}
+\todo[inline]{Please rerun the script generating the figure}
 \end{figure}
 
 The energy spectra shown in figure~\ref{fig:energySpectrumInfinite} and figure~\ref{fig:energySpectrumFinite} show that our wave packages are in a superposition of stationary states which are eigenfunctions of the Hamiltonian. Thus if we were to measure the energy of one of our wave package we would only be able to measure the energies shown in the figures. It is important to note that we can only measure the discrete energies plotted and not any energy in between. When we measure the energy of one of our wave package $\abs{c_n}^2$ represents the probability of measuring a certain energy. Hence if we were to measure the energy of one of our wave package in the finite square well inside the infinite square well we would be more likely to observe energies around $10~000$ than energies around $40~000$ and we would never measure energies above $60~000$.
 
 \section{Appendix}
 \todo[inline]{Do we need this?}
+\todo[inline]{Fix quad}
 ALL THE CODE!!!!
 \end{document}

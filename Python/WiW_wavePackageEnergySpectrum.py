@@ -41,7 +41,8 @@ energies = np.zeros(cn.shape)
 for i in range(len(cn)):
   energies[i] = energy(i)
 
-plt.plot(energies, np.abs(cn)**2, 'o')
-plt.xlabel("Energy")
+plt.plot(energies, np.abs(cn)**2, 'ro')
+plt.xlabel("$E_n$")
 plt.ylabel("$|c_n|^2$")
-plt.show()
+#plt.show()
+plt.savefig("WiW_wavePackageEnergySpectrum.png")

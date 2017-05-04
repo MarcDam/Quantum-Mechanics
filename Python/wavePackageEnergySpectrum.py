@@ -38,8 +38,9 @@ else:
   print("Wave function is not normalized. Integral is " + str(integral))
 
 plt.plot(energy(np.arange(len(cn))), np.abs(cn)**2, 'ro')
-plt.title("Energy spectrum")
-plt.xlabel(r"$| c_n |^2$")
-plt.ylabel(r"$E_n$")
+#plt.title("Energy spectrum")
+plt.xlabel(r"$E_n$")
+plt.ylabel(r"$| c_n |^2$")
+#plt.show()
+plt.savefig("ISW_wavePackageEnergySpectrum.png")
 
-plt.show()
