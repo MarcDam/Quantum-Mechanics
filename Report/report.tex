@@ -14,7 +14,6 @@
 \usepackage{subfiles}
 \usepackage[numbib,nottoc]{tocbibind}
 \usepackage{url}
-\usepackage{todonotes}
 \usepackage{siunitx}
 \usepackage{listings}
 \usepackage{color}
@@ -257,13 +256,13 @@ We have simulated a Gaussian wave package given by the equation
 where $A$ is a normalization constant. In the infinite square well we set $x_0 = 0.5$, $\sigma_0 = 0.1$ and $k_0 = 100$. The simulated wave package is a linear combination of the first 48 staionary states. In the finite square well inside an infinite square well we set $x_0 = 2.5$, $\sigma_0 = 0.1$ and $k_0 = 25$. This wave package is a linear combination of the first 110 stationary states. The time evolution as well as the momentum spectrum of these wave packages are shown in the accompanying videos.
 
 \begin{figure}
-\missingfigure{Do me some figure please!1!}
-\caption{The wave package in the infinite square well along with its momentum spectrum at t = ...} \label{fig:wavePackageInit}
+\includegraphics[width=\textwidth]{ISW_wavePackageEarly.png}
+\caption{The wave package in the infinite square well along with its momentum spectrum at $t = 0.00823851738139$. The wave package has just bounced off of the left wall and has momentum to the right.} \label{fig:wavePackageInit}
 \end{figure}
 
 \begin{figure}
-\missingfigure{More figure please!!!}
-\caption{The wave package in the infinite square well along with its momentum spectrum at t = ...} \label{fig:wavePackageLater}
+\includegraphics[width=\textwidth]{ISW_wavePackageLater.png}
+\caption{The wave package in the infinite square well along with its momentum spectrum at $t = 0.242025878544$.} \label{fig:wavePackageLater}
 \end{figure}
 
 Two snapshots of the wave package in the infinite square well at different times are shown in figure~\ref{fig:wavePackageInit} and figure~\ref{fig:wavePackageLater}. From these figures we see that the wave package has a  well defined shape, position and momentum early on. At time zero $\sigma_x \sigma_p$ for the wave package is close to the lower limit of the uncertainty principle. At later times the wave package has a less well defined shape, position and momentum. This is also consistent with $\sigma_x \sigma_p$ being large. The wave package in the finite square well inside the infinite square well shows similar behavior.
