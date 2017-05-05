@@ -15,6 +15,7 @@
 \usepackage[numbib,nottoc]{tocbibind}
 \usepackage{url}
 \usepackage{siunitx}
+\sisetup{exponent-product=\cdot}
 \usepackage{listings}
 \usepackage{subfigure}
 \usepackage{color}
@@ -86,7 +87,6 @@ In the infinite square well the potential is given by
 V = \begin{cases} 0, & 0 \leq x \leq a \\
                   \infty, & \text{otherwise} \end{cases}.
 \end{equation}
-
 Outside the well the wave function is $0$ and inside the well it is given by
 \begin{equation}
 \psi_n(x) = \sqrt{\frac{2}{a}} \sin \left( \frac{n \pi}{a} x \right),
@@ -147,19 +147,16 @@ The wave functions for the scattering states are given by
 \end{equation}
 where $A$ is a normalization constant and
 \begin{align*}
-k &= \frac{\sqrt{2 m E}}{\hbar}, \\
-l &= \frac{\sqrt{2 m (E + V_0)}}{\hbar}, \\
-B &= i \frac{\sin 2 la}{2 kl} \left( l^2 - k^2 \right) F, \\
-C &= \left( \sin la + i \frac{k}{l} \cos la \right) e^{ika} F, \\
-D &= \left( \cos la - i \frac{k}{l} \sin la \right) e^{ika} F, \\
-F &= \frac{e^{-2ika}}{\cos 2la - i \frac{k^2 + l^2}{2kl} \sin 2la} A.
+k &= \frac{\sqrt{2 m E}}{\hbar},& l &= \frac{\sqrt{2 m (E + V_0)}}{\hbar}, \\
+B &= i \frac{\sin 2 la}{2 kl} \left( l^2 - k^2 \right) F,& C &= \left( \sin la + i \frac{k}{l} \cos la \right) e^{ika} F, \\
+D &= \left( \cos la - i \frac{k}{l} \sin la \right) e^{ika} F,& F &= \frac{e^{-2ika}}{\cos 2la - i \frac{k^2 + l^2}{2kl} \sin 2la} A.
 \end{align*}
 For the scattering states we observe reflection and transmission through the well wall.
 
 The energy spectrum of the scattering states is continuous and thus any positive energy is allowed.
 
 \section{Quantum Mechanics in Reduced Units}
-When doing simulations we want to work with the physical quantities in reduced units. We do this for two reasons: We don't have to keep track of the units on everything and quantities in reduced units tend to be of a reasonable order of magnitude.
+When doing simulations we want to work with physical quantities in reduced units. We do this for two reasons: We don't have to keep track of the units and quantities in reduced units tend to be of a reasonable order of magnitude.
 
 In our simulations we have three constants: The particle mass $m_0$, the well width $a$ and Planck's constant $\hbar$. In our system of reduced units these will all be equal to $1$. With these three constants we can derive the reduced units for the remaining relevant quantities in our simulation. The relevant quantities are shown in table~\ref{tab:reducedUnits}, where the real values for an electron in a $\pi$-bond in an ethylene molecule is also shown.
 
@@ -208,7 +205,7 @@ These equations along with equation~\eqref{eq:evenEnergy} and equation~\eqref{eq
 An idealized model of the $\pi$-bond in an ethylene molecule is an infinite square well where the width of the well is the length of a bond. The particle confined in the well then corresponds to an electron confined in a $\pi$-bond. The bond length between the two carbon atoms in ethylene is about $\SI{1.34}{\angstrom}$ and the mass of the electron is about $m_e = \SI{9.109e-31}{\kilo\gram}$. Using these numbers we can make a conversion table (table~\ref{tab:reducedUnits}) which allows us to convert from reduced units in our simulation to the real world example of an electron in a $\pi$-bond in an ethylene molecule.
 
 \section{Numerics}
-In this section we will introduce the software as well as some of the numerical methods we have used in the process of simulation the potentials and wave packages.
+In this section we will introduce the software as well as some of the numerical methods we have used when simulating the potentials and wave packages. We will also give a brief overview of the code structure.
 
 \subsection{The Tools}
 In this project we have used Python to numerically simulate a guassian wave package in an infinite square well and in a finite square well inside an infinite square well.
@@ -224,26 +221,26 @@ When working with the finite square well we need to do numerical root finding to
 
 Newton's method works by repeatedly estimating the root using a linear approximation of the function we wish to find the root of. As always we use a first order Taylor expansion to find a linear approximation. Starting from an initial guess of $x_0$ this gives us the equation
 \begin{equation}
-0 = f(x_0) + f'(x_0)(x - x_0)
+0 = f(x_0) + f'(x_0)(x - x_0).
 \end{equation}
 If we solve for $x$ we get that
 \begin{equation}
 x = x_0 - \frac{f(x_0)}{f'(x_0)}. \label{eq:newtonNonRecurring}
 \end{equation}
-Since we arrived at this ``root'' by using an approximation we would expect that this ``root'' is also only an an approximation to the real root which we are interested in. Since linear approximations of differentiable functions are more accurate the closer we are to the point around which we approximate, we can get a better estimate of our root by repeating the process. Thus we rewrite equation~\eqref{eq:newtonNonRecurring} as a recurrence relation
+Since we arrived at this ``root'' by using an approximation we would expect that this ``root'' is also only an approximation to the real root which we are interested in. Since linear approximations of differentiable functions are more accurate the closer we are to the point around which we approximate, we can get a better estimate of our root by repeating the process. Thus we rewrite equation~\eqref{eq:newtonNonRecurring} as a recurrence relation
 \begin{equation}
 x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.
 \end{equation}
 For the implementation used in our script see the appendix~\ref{app:newton}.
 
 \subsection{Code Structure}
-The code for each potential is divided into a number of modules. The lowest level module \verb!psi_n! (named \path{psi_n.py}, \path{FSW_psi_n_bound.py} and \path{WiW_psi_n.py} respectively) contains the wave functions of the time-independent stationary states as well as the energies corresponding to the stationary states. It takes the wave function index $n$ as well as a position array as arguments.
+The code for each potential is divided into a number of modules. The lowest level module \verb!psi_n! (named \path{psi_n.py}, \path{FSW_psi_n_bound.py} and \path{WiW_psi_n.py} respectively) contains the wave functions of the time-independent stationary states as well as the corresponding energies. It takes the wave function index $n$ as well as a position array as arguments.
 
-The \verb!psi_n! module is then used in the \verb!Psi_n! module (named \path{Psi_n.py}, \path{FSW_Psi_n_bound.py} and \path{WiW_Psi_n.py} respectively) which contains the time-depedent wave functions. This module takes a time value as argument in addition to the arguments of the \verb!psi! module.  The \verb!Psi_n! module is then used to construct the general wave function. This is done in the \verb!Psi! module (named \path{Psi.py}, \path{FSW_Psi_bound.py} and \path{WiW_Psi.py} respectively) which takes a list of coefficients $c_n$ as an argument in addition to the arguments of the \verb!Psi_n! module.
+The \verb!psi_n! module is used in the \verb!Psi_n! module (named \path{Psi_n.py}, \path{FSW_Psi_n_bound.py} and \path{WiW_Psi_n.py} respectively) which contains the time-depedent wave functions. This module takes a time value as argument in addition to the arguments of the \verb!psi! module.  The \verb!Psi_n! module is then used to construct the general wave function. This is done in the \verb!Psi! module (named \path{Psi.py}, \path{FSW_Psi_bound.py} and \path{WiW_Psi.py} respectively) which takes a list of coefficients $c_n$ as an argument in addition to the arguments of the \verb!Psi_n! module.
 
 To get the $c_n$'s for an arbitrary wave function we use Fourier's trick to get the projection of the wave function on the stationary states. This is done in the module \verb!getcn! (named \path{getcn.py}, \path{FSW_getcn_bound.py} and \path{WiW_getcn.py} respectively) which determines the $c_n$'s by numerical integration. The \verb!getcn! module has two different options. It can either determine a fixed number of $c_n$'s or determine enough $c_n$'s to make the sum of the norm squares within an $\epsilon$ of $1$. In the case of the bound states in the finite square well it is not always possible to ensure that the $c_n$'s have the required norm since there is a finite number of bound states in the finite square well.
 
-We gather all these in the main script (named \path{wavePackageSimultaneousPlot.py} and \path{WiW_wavePackageSimultaneousPlot.py} respectively) where we simulate the wave package in the potential.	The overall structure of the script is to first load in the modules \verb!Psi! and \verb!getcn!. Then we define and normalize the wave package. After this we use the \verb!getcn! module to get a list of $c_n$'s which we then use to calculate the linear combination of stationary states using the \verb!Psi! module. With the setup done we then calculate $\langle x \rangle$, $\langle x^2 \rangle$, $\langle p \rangle$ and $\langle p^2 \rangle$ using \lstinline{numpy.trapz} and \lstinline{numpy.gradient}. These values can be used to calculate $\sigma_x$ and $\sigma_p$ which we use to check that the uncertainty principle holds. Finally we calculate the momentum distribution by projecting the wave function $\Psi$ onto the eigenfunctions of the momentum operator. The remainder of the script is used to animate the wave package along with its momentum spectrum.
+We gather all these in the main script (named \path{wavePackageSimultaneousPlot.py} and \path{WiW_wavePackageSimultaneousPlot.py} respectively) where we simulate the wave package in the potential.	The overall structure of the script is to first load in the modules \verb!Psi! and \verb!getcn!. Then we define and normalize the wave package. After this we use the \verb!getcn! module to get a list of $c_n$'s which we then use to calculate the linear combination of stationary states using the \verb!Psi! module. With the setup done we then calculate $\langle x \rangle$, $\langle x^2 \rangle$, $\langle p \rangle$ and $\langle p^2 \rangle$ using \lstinline{numpy.trapz} and \lstinline{numpy.gradient}. These values can be used to calculate $\sigma_x$ and $\sigma_p$ which we use to check that the uncertainty principle holds. Finally we calculate the momentum distribution by projecting the wave function $\Psi$ onto the eigenfunctions of the momentum operator. The remainder of the script is used to animate the wave package along with its momentum spectrum. For a more detailed overview of the code see appendix~\ref{app:mainScript}.
 
 \section{Numerical Results}
 In this section we present the numerical results obtained from simulating a wave package in the infinite square well and in the finite square well inside an infinite square well.
@@ -270,11 +267,11 @@ where $A$ is a normalization constant. In the infinite square well we set $x_0 =
 \end{center}
 \end{figure}
 
-Two snapshots of the wave package in the infinite square well at different times are shown in figure~\ref{fig:wavePackageInit} and figure~\ref{fig:wavePackageLater}. From these figures we see that the wave package has a  well defined shape, position and momentum early on. At time zero $\sigma_x \sigma_p$ for the wave package is close to the lower limit of the uncertainty principle. At later times the wave package has a less well defined shape, position and momentum. This is also consistent with $\sigma_x \sigma_p$ being large. The wave package in the finite square well inside the infinite square well shows similar behavior.
+Two snapshots of the wave package in the infinite square well at different times are shown in figure~\ref{fig:wavePackageInit} and figure~\ref{fig:wavePackageLater}. From these figures we see that the wave package has a  well defined shape, position and momentum early on. At time zero $\sigma_x \sigma_p$ for the wave package is close to the lower limit of the uncertainty principle. At later times the wave package has a less well defined shape, position and momentum. This is also consistent with $\sigma_x \sigma_p$ being large. The wave package in the finite square well inside the infinite square well shows similar behavior although it loses its shape faster.
 
 Our numerical simulations highlight an interesting feature of the infinite square well: If we wait long enough the wave package will eventually return to its initial shape. This happens in our simulations because we are working with the periodic functions sine and cosine. In the real world we would not be able to have an isolated wave package in an infinite square well. Perturbations and interactions from outside the well would break the periodicity and it would be very unlikely for the wave package to assume its initial shape at later times. We would also expect that a real world wave package would not return to a state of minimal uncertainty.
 
-It is worth noting that the wave package in the finite square well inside the infinite square well loses its shape faster than the wave package in the infinite square well. This is consistent with the fact that the wave package in the finite square well inside an infinite square well has a higher energy than the wave package in the infinite square well. The finite square well appearently also does some work in spreading out the wave package and we can see from the video of the wave package in the finite square well inside the infinite square well that the standard deviation of the position of the wave package increases as the wave package passes over the finite square well.
+It is worth noting that the wave package in the finite square well inside the infinite square well loses its shape faster than the wave package in the infinite square well. This is consistent with the fact that the wave package in the finite square well inside an infinite square well has a higher energy than the wave package in the infinite square well. The finite square well apparently also does some work in spreading out the wave package and we can see from the video of the wave package in the finite square well inside the infinite square well that the standard deviation of the position of the wave package increases as the wave package passes over the finite square well.
 
 \begin{figure}
 \begin{center}
@@ -300,13 +297,13 @@ We have in this report seen how many of the peculiarities of quantum mechanics c
 \newpage
 \appendix
 \section{Appendix: Code Snippets}
-This appendix includes some of the interesting excerpts from our code.
+This appendix includes some excerpts from our code.
 \subsection{Newton's Method} \label{app:newton}
 We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows:
 \lstinputlisting[firstnumber=53,firstline=53,lastline=73]{../Python/FSW_psi_n_bound.py}
 Here \lstinline{hfuns} is a previously defined list of functions which correspond to equations \eqref{eq:evenEnergy} and \eqref{eq:oddEnergy} with the RHS subtracted from the LHS. The derivatives \lstinline{dhdzfuns} are calculated symbolically since the numerical derivative was erroneous near the singularities of $\tan z$ and $\cot z$. As initial guesses we use values slightly below the singularities of $\tan z$ and $\cot z$ respectively.
 
-\subsection{The Main Script}
+\subsection{The Main Script} \label{app:mainScript}
 This section will give a bit more detail on the main script in which we simulate the wave package.
 
 \lstinputlisting[firstnumber=12,firstline=12,lastline=13]{../Python/wavePackageSimultaneousPlot.py}
