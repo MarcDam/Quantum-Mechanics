@@ -16,6 +16,7 @@
 \usepackage{url}
 \usepackage{siunitx}
 \usepackage{listings}
+\usepackage{subfigure}
 \usepackage{color}
 \lstset{
   language=Python,
@@ -242,7 +243,7 @@ The \verb!psi_n! module is then used in the \verb!Psi_n! module (named \path{Psi
 
 To get the $c_n$'s for an arbitrary wave function we use Fourier's trick to get the projection of the wave function on the stationary states. This is done in the module \verb!getcn! (named \path{getcn.py}, \path{FSW_getcn_bound.py} and \path{WiW_getcn.py} respectively) which determines the $c_n$'s by numerical integration. The \verb!getcn! module has two different options. It can either determine a fixed number of $c_n$'s or determine enough $c_n$'s to make the sum of the norm squares within an $\epsilon$ of $1$. In the case of the bound states in the finite square well it is not always possible to ensure that the $c_n$'s have the required norm since there is a finite number of bound states in the finite square well.
 
-We gather all these in the main script (named \path{wavePackageSimultaneousPlot.py} and \path{WiW_wavePackageSimultaneousPlot.py} respectively) where we simulate the wave package in the potential.	The overall structure of the script is to first load in the modules \verb!Psi! and \verb!getcn!. Then we define and normalize the wave package. After this we use the \verb!getcn! module to get a list of $c_n$'s which we then use to calculate the linear combination of stationary states using the \verb!Psi! module. With the setup done we then calculates $\langle x \rangle$, $\langle x^2 \rangle$, $\langle p \rangle$ and $\langle p^2 \rangle$ using \lstinline{numpy.trapz} and \lstinline{numpy.gradient}. These values can be used to calculate $\sigma_x$ and $\sigma_p$ which we use to check that the uncertainty principle holds. Finally we calculate the momentum distribution by projecting the wave function $\Psi$ onto the eigenfunctions of the momentum operator. The remainder of the script is used to animate the wave package along with its momentum spectrum.
+We gather all these in the main script (named \path{wavePackageSimultaneousPlot.py} and \path{WiW_wavePackageSimultaneousPlot.py} respectively) where we simulate the wave package in the potential.	The overall structure of the script is to first load in the modules \verb!Psi! and \verb!getcn!. Then we define and normalize the wave package. After this we use the \verb!getcn! module to get a list of $c_n$'s which we then use to calculate the linear combination of stationary states using the \verb!Psi! module. With the setup done we then calculate $\langle x \rangle$, $\langle x^2 \rangle$, $\langle p \rangle$ and $\langle p^2 \rangle$ using \lstinline{numpy.trapz} and \lstinline{numpy.gradient}. These values can be used to calculate $\sigma_x$ and $\sigma_p$ which we use to check that the uncertainty principle holds. Finally we calculate the momentum distribution by projecting the wave function $\Psi$ onto the eigenfunctions of the momentum operator. The remainder of the script is used to animate the wave package along with its momentum spectrum.
 
 \section{Numerical Results}
 In this section we present the numerical results obtained from simulating a wave package in the infinite square well and in the finite square well inside an infinite square well.
@@ -256,13 +257,17 @@ We have simulated a Gaussian wave package given by the equation
 where $A$ is a normalization constant. In the infinite square well we set $x_0 = 0.5$, $\sigma_0 = 0.1$ and $k_0 = 100$. The simulated wave package is a linear combination of the first 48 staionary states. In the finite square well inside an infinite square well we set $x_0 = 2.5$, $\sigma_0 = 0.1$ and $k_0 = 25$. This wave package is a linear combination of the first 110 stationary states. The time evolution as well as the momentum spectrum of these wave packages are shown in the accompanying videos.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{ISW_wavePackageEarly.png}
-\caption{The wave package in the infinite square well along with its momentum spectrum at $t = 0.00823851738139$. The wave package has just bounced off of the left wall and has momentum to the right.} \label{fig:wavePackageInit}
-\end{figure}
-
-\begin{figure}
-\includegraphics[width=\textwidth]{ISW_wavePackageLater.png}
-\caption{The wave package in the infinite square well along with its momentum spectrum at $t = 0.242025878544$.} \label{fig:wavePackageLater}
+\begin{center}
+\subfigure[The wave package after bouncing into the wall once]{
+\label{fig:wavePackageInit}
+\includegraphics[height=0.41\textheight]{ISW_wavePackageEarly.png}
+}
+\subfigure[The wave package after a long time in the well]{
+\label{fig:wavePackageLater}
+\includegraphics[height=0.41\textheight]{ISW_wavePackageLater.png}
+}
+\caption{The wave package in the infinite square well along with its momentum spectrum at two different times.}
+\end{center}
 \end{figure}
 
 Two snapshots of the wave package in the infinite square well at different times are shown in figure~\ref{fig:wavePackageInit} and figure~\ref{fig:wavePackageLater}. From these figures we see that the wave package has a  well defined shape, position and momentum early on. At time zero $\sigma_x \sigma_p$ for the wave package is close to the lower limit of the uncertainty principle. At later times the wave package has a less well defined shape, position and momentum. This is also consistent with $\sigma_x \sigma_p$ being large. The wave package in the finite square well inside the infinite square well shows similar behavior.
@@ -272,13 +277,19 @@ Our numerical simulations highlight an interesting feature of the infinite squar
 It is worth noting that the wave package in the finite square well inside the infinite square well loses its shape faster than the wave package in the infinite square well. This is consistent with the fact that the wave package in the finite square well inside an infinite square well has a higher energy than the wave package in the infinite square well. The finite square well appearently also does some work in spreading out the wave package and we can see from the video of the wave package in the finite square well inside the infinite square well that the standard deviation of the position of the wave package increases as the wave package passes over the finite square well.
 
 \begin{figure}
-\includegraphics[width=\textwidth]{../Python/ISW_wavePackageEnergySpectrum.png}
-\caption{Energy spectrum of the wave package in the infinite square well} \label{fig:energySpectrumInfinite}
-\end{figure}
+\begin{center}
 
-\begin{figure}
-\includegraphics[width=\textwidth]{../Python/WiW_wavePackageEnergySpectrum.png}
-\caption{Energy spectrum of the wave package in the finite square well} \label{fig:energySpectrumFinite}
+\subfigure[Infinite square well]{
+\label{fig:energySpectrumInfinite}
+\includegraphics[height=0.4\textheight]{../Python/ISW_wavePackageEnergySpectrum.png}
+}
+
+\subfigure[Finite square well inside infinite square well]{
+\label{fig:energySpectrumFinite}
+\includegraphics[height=0.4\textheight]{../Python/WiW_wavePackageEnergySpectrum.png}
+}
+\caption{Energy spectrum of the wave package in the two potentials} 
+\end{center}
 \end{figure}
 
 The energy spectra shown in figure~\ref{fig:energySpectrumInfinite} and figure~\ref{fig:energySpectrumFinite} show that our wave packages are in a superposition of stationary states which are eigenfunctions of the Hamiltonian. Thus if we were to measure the energy of one of our wave package we would only be able to measure the energies shown in the figures. It is important to note that we can only measure the discrete energies plotted and not any energy in between. When we measure the energy of one of our wave package $\abs{c_n}^2$ represents the probability of measuring a certain energy. Hence if we were to measure the energy of one of our wave package in the finite square well inside the infinite square well we would be more likely to observe energies around $10~000$ than energies around $40~000$ and we would never measure energies above $60~000$.
