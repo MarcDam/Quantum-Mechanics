@@ -32,7 +32,7 @@ def energy(n):
   if len(energiesOrdered) <= n:
     findEnergies(n)
 
-  return energiesOrdered[n]
+  return energiesOrdered[n][0]
   
 def hFunEven(z):
   return z*np.tan(z)*np.tan(np.sqrt(z**2 - z0**2) * (1 - b)) + np.sqrt(z**2 - z0**2)
@@ -86,8 +86,8 @@ def findEnergies(n):
       E = zi**2/2 - V0
       
       index = 0
-      for energy in energiesOrdered:
-        if E > energy[0]:
+      for Eo in energiesOrdered:
+        if E > Eo[0]:
           index += 1
         else:
           break

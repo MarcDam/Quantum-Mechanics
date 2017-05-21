@@ -29,7 +29,7 @@ def psi_n_odd(n, x):
   return np.piecewise(x, [x > b, np.logical_and(x <= b, x >= 1), np.logical_and(x <= 1, x >= -1), np.logical_and(x <= -1, x >= -b), x < -b], [0, lambda x: A*np.sinh(k*(x-b)), lambda x: D*np.sin(l*x), lambda x: -A*np.sinh(k*(-x - b)), 0])
   
 def energy(n):
-  return energiesOrdered[n]
+  return energiesOrdered[n][0]
   
 def hFunEven(z):
   return z*np.tan(z)*np.tanh(np.sqrt(z0**2 - z**2) * (1 - b)) + np.sqrt(z0**2 - z**2)
@@ -98,8 +98,8 @@ energiesOrdered = []
 for key in energies:
   for i in energies[key]:
     index = 0
-    for energy in energiesOrdered:
-      if i > energy[0]:
+    for E in energiesOrdered:
+      if i > E[0]:
         index += 1
       else:
         break

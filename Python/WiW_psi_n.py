@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 
-import ISW_psi_n as ISW
-import FSW_psi_n_bound as FSW
+import WiW_psi_n_positive as pos
+import WiW_psi_n_negative as neg
 import numpy as np
 
 def psi_n(n, x):
-  if n < len(FSW.energiesOrdered):
-    return FSW.psi_n(n, x)
+  if n < len(neg.energiesOrdered):
+    return neg.psi_n(n, x)
   else:
-    return 1/np.sqrt(x[-1]-x[0])*ISW.psi_n(n - len(FSW.energiesOrdered) + 1, (x - x[0])/(x[-1]-x[0]))
+    return pos.psi_n(n - len(neg.energiesOrdered))
     
 def energy(n):
-  if n < len(FSW.energiesOrdered):
-    return FSW.energiesOrdered[n][0]
+  if n < len(neg.energiesOrdered):
+    return neg.energy(n)
   else:
-    return ISW.energy(n - len(FSW.energiesOrdered) + 1)
+    return pos.energy(n - len(neg.energiesOrdered))
     
