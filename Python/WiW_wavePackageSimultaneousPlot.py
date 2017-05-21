@@ -9,26 +9,26 @@ from matplotlib.lines import Line2D
 from WiW_Psi import *
 from WiW_getcn import *
 
-# Initialize the positive energies
-
-x = np.linspace(-3, 3, 2**11)
-t = np.linspace(0, 1, 2**8)
+x = np.linspace(-3, 3, 2**12)
+t = np.linspace(0, 1, 2**14)
 
 # Wave package constants
 x0 = 2.5;
 sigma = 0.2;
-k0 = 6;
+k0 = 25;
 
-# Normalize the custom wave function and get the cn's
+# Normalize the custom wave function
 fun = np.exp(-1/2 * (x-x0)**2/sigma**2) * np.exp(-1j*k0*x)
 
 A = 1/np.sqrt(np.trapz(np.abs(fun)**2, x = x))
 
 fun = A * fun
 
-pos.findEnergies(48)
+# Initialize the positive energies
+pos.findEnergies(400)
 
-cn = getcn(x, fun, n=48)
+# Get the cn's
+cn = getcn(x, fun, n=400)
 
 # Check normalization
 
@@ -72,7 +72,7 @@ STDp = np.sqrt(Ep2 - Ep**2)
 print("Uncertainty principle holds: " + str((STDx*STDp >= 0.5).all()))
 
 # Calculate the momentum spectrum
-p = np.linspace(-60, 60, 2**8)
+p = np.linspace(-60, 60, 2**9)
 pdist = []
 
 for i in range(0, len(t)):
@@ -132,7 +132,7 @@ ax2.set_title("Momentum spectrum")
 ax2.add_line(line2)
 ax2.set_xlabel("$p$")
 ax2.set_xlim(p[0], p[-1])
-ax2.set_ylim(-0.02, 0.10)
+ax2.set_ylim(-0.02, 0.2)
 annotation2 = ax2.annotate(r"$\langle p \rangle$", xy = (Ep[0], -0.02), xytext = (Ep[0], -0.01), arrowprops = dict(facecolor = "black", shrink = 0.05), )
 annotationSTDp = ax2.annotate("", xy = (Ep[0] - STDp[0], -0.02), xytext = (Ep[0] + STDp[0], -0.02), arrowprops = dict(arrowstyle="|-|"))
 
@@ -147,6 +147,6 @@ title = fig.suptitle("")
 
 anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, blit = False)
 
-plt.show()
+#plt.show()
 
-#anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
+anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
