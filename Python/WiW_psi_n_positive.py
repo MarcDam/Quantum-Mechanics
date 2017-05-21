@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 def psi_n(n, x):
   E = energy(n)
   
-  if E[1] == "even":
-    i = energies["even"].index(E[0])
+  if E in energies["even"]:
+    i = energies["even"].index(E)
 
     return psi_n_even(i, x)
     
   else:
-    i = energies["odd"].index(E[0])
+    i = energies["odd"].index(E)
     
     return psi_n_odd(i, x)
 
@@ -68,11 +68,11 @@ def findEnergies(n):
   niter = 10**4
   
   if len(energies["even"]) > 0 and len(energies["odd"]) > 0:
-    guesses = [[np.sqrt(2*(energies["even"][-1] + V0)) + 0.9, 0.9, 1], [np.sqrt(2*(energies["odd"][-1] + V0)) + 0.9, 0.9, 1]]
+    guesses = [[np.sqrt(2*(energies["even"][-1] + V0)) + 0.9, 0.9, 1], [np.sqrt(2*(energies["odd"][-1] + V0)) + 0.9, 0.9, 0.98]]
   else:
     guesses = [[z0 + 0.2, 0.9, 1], [z0 + 0.1, 0.9, 1]]
   
-  while len(energiesOrdered) < n:
+  while len(energiesOrdered) <= n:
     for i, hfun in enumerate(hfuns):
       dhdz = dhdzfuns[i]
       zi = guesses[i][0]
@@ -82,6 +82,7 @@ def findEnergies(n):
       
       print(hfun)
       print(zi)
+      print(guesses[i][0])
       
       E = zi**2/2 - V0
       
@@ -106,10 +107,14 @@ def findEnergies(n):
         guesses[i][0] = zi + 1.3
       elif i == 1 and len(energies["odd"]) == 1:
         guesses[i][0] = zi + 0.6
-      elif len(energies[["even", "odd"][i]]) <= 10:
+      elif len(energies[["even", "odd"][i]]) <= 8:
         guesses[i][0] = zi + guesses[i][1]
-      else:
+      elif len(energies[["even", "odd"][i]]) < 12:
         guesses[i][0] = zi + guesses[i][2]
+      elif len(energies[["even", "odd"][i]]) <= 13:
+        guesses[i][0] = zi + guesses[i][2] + 0.01
+      else:
+        guesses[i][0] = zi + guesses[i][2] + 0.04
 
 # Plot the bound states
 

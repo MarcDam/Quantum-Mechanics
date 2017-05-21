@@ -8,7 +8,7 @@ def psi_n(n, x):
   if n < len(neg.energiesOrdered):
     return neg.psi_n(n, x)
   else:
-    return pos.psi_n(n - len(neg.energiesOrdered))
+    return pos.psi_n(n - len(neg.energiesOrdered), x)
     
 def energy(n):
   if n < len(neg.energiesOrdered):

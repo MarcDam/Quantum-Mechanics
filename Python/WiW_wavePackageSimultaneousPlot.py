@@ -9,13 +9,15 @@ from matplotlib.lines import Line2D
 from WiW_Psi import *
 from WiW_getcn import *
 
-x = np.linspace(-3, 3, 2**12)
-t = np.linspace(0, 4/np.pi, 2**14)
+# Initialize the positive energies
+
+x = np.linspace(-3, 3, 2**11)
+t = np.linspace(0, 1, 2**8)
 
 # Wave package constants
 x0 = 2.5;
-sigma = 0.1;
-k0 = 25;
+sigma = 0.2;
+k0 = 6;
 
 # Normalize the custom wave function and get the cn's
 fun = np.exp(-1/2 * (x-x0)**2/sigma**2) * np.exp(-1j*k0*x)
@@ -24,7 +26,9 @@ A = 1/np.sqrt(np.trapz(np.abs(fun)**2, x = x))
 
 fun = A * fun
 
-cn = getcn(x, fun)
+pos.findEnergies(48)
+
+cn = getcn(x, fun, n=48)
 
 # Check normalization
 
@@ -68,11 +72,11 @@ STDp = np.sqrt(Ep2 - Ep**2)
 print("Uncertainty principle holds: " + str((STDx*STDp >= 0.5).all()))
 
 # Calculate the momentum spectrum
-p = np.linspace(-60, 60, 2**9)
+p = np.linspace(-60, 60, 2**8)
 pdist = []
 
 for i in range(0, len(t)):
-  if i % 2**8 == 0:
+  if i % 2**7 == 0:
     print("%.2f" %(i/len(t)))
     
   tmp = np.zeros(p.shape, dtype=np.complex128)
@@ -143,6 +147,6 @@ title = fig.suptitle("")
 
 anim = animation.FuncAnimation(fig, animate, frames = len(t), interval = 20, blit = False)
 
-#plt.show()
+plt.show()
 
-anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
+#anim.save("WiW_wavePackageSimultaneousPlotk025.webm", writer="ffmpeg", fps = 30, codec="vp9", dpi=200)
