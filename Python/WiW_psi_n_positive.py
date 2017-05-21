@@ -15,18 +15,18 @@ def psi_n(n, x):
     return psi_n_odd(i, x)
 
 def psi_n_even(n, x):
-  k = np.sqrt(-2*energies["even"][n])
+  k = np.sqrt(2*energies["even"][n])
   l = np.sqrt(2*(energies["even"][n] + V0))
-  A = 1/np.sqrt((1-b) - np.sinh(2*k*(1-b))/(2*k) + (np.sinh(k*(1-b))/np.cos(l))**2*(1 + np.sin(2*l)/(2*l)))
-  D = A * np.sinh(k*(1-b))/np.cos(l)
-  return np.piecewise(x, [x > b, np.logical_and(x <= b, x >= 1), np.logical_and(x <= 1, x >= -1), np.logical_and(x <= -1, x >= -b), x < -b], [0, lambda x: A*np.sinh(k*(x-b)), lambda x: D*np.cos(l*x), lambda x: A*np.sinh(k*(-x - b)), 0])
+  A = 1/np.sqrt(-(1-b) + np.sin(2*k*(1-b))/(2*k) + (np.sin(k*(1-b))/np.cos(l))**2*(1 + np.sin(2*l)/(2*l)))
+  D = A * np.sin(k*(1-b))/np.cos(l)
+  return np.piecewise(x, [x > b, np.logical_and(x <= b, x >= 1), np.logical_and(x <= 1, x >= -1), np.logical_and(x <= -1, x >= -b), x < -b], [0, lambda x: A*np.sin(k*(x-b)), lambda x: D*np.cos(l*x), lambda x: A*np.sin(k*(-x - b)), 0])
 
 def psi_n_odd(n, x):
-  k = np.sqrt(-2*energies["odd"][n])
+  k = np.sqrt(2*energies["odd"][n])
   l = np.sqrt(2*(energies["odd"][n] + V0))
-  A = 1/np.sqrt((1-b) - np.sinh(2*k*(1-b))/(2*k) + (np.sinh(k*(1-b))/np.sin(l))**2*(1 - np.sin(2*l)/(2*l)))
-  D = A * np.sinh(k*(1-b))/np.sin(l)
-  return np.piecewise(x, [x > b, np.logical_and(x <= b, x >= 1), np.logical_and(x <= 1, x >= -1), np.logical_and(x <= -1, x >= -b), x < -b], [0, lambda x: A*np.sinh(k*(x-b)), lambda x: D*np.sin(l*x), lambda x: -A*np.sinh(k*(-x - b)), 0])
+  A = 1/np.sqrt(-(1-b) + np.sin(2*k*(1-b))/(2*k) + (np.sin(k*(1-b))/np.sin(l))**2*(1 - np.sin(2*l)/(2*l)))
+  D = A * np.sin(k*(1-b))/np.sin(l)
+  return np.piecewise(x, [x > b, np.logical_and(x <= b, x >= 1), np.logical_and(x <= 1, x >= -1), np.logical_and(x <= -1, x >= -b), x < -b], [0, lambda x: A*np.sin(k*(x-b)), lambda x: D*np.sin(l*x), lambda x: -A*np.sin(k*(-x - b)), 0])
   
 def energy(n):
   if len(energiesOrdered) <= n:
@@ -113,6 +113,8 @@ def findEnergies(n):
 
 # Plot the bound states
 
+#findEnergies(8)
+
 #x = np.linspace(-b, b, 200*b)
 #    
 #for i in range(0, len(energies["even"])):
@@ -122,7 +124,7 @@ def findEnergies(n):
 #  plt.plot(x, energies["odd"][i] + psi_n_odd(i, x), label = "Odd, energy: " + str(energies["odd"][i] ))
 #  
 #plt.plot(x, np.piecewise(x, [x > 1, np.logical_and(1 >= x, x >= -1), -1 > x], [0, -V0, 0]))
-#plt.ylim(-V0-1, 1)
+##plt.ylim(-V0-1, 1)
 #plt.xlabel("$x/a$")
 #plt.ylabel("$\psi(x)$")
 ##plt.legend()
