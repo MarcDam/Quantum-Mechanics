@@ -25,10 +25,10 @@ A = 1/np.sqrt(np.trapz(np.abs(fun)**2, x = x))
 fun = A * fun
 
 # Initialize the positive energies
-pos.findEnergies(400)
+pos.findEnergies(200)
 
 # Get the cn's
-cn = getcn(x, fun, n=400)
+cn = getcn(x, fun, n=200)
 
 # Check normalization
 

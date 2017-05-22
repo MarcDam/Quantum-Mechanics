@@ -15,14 +15,18 @@ x0 = 2.5;
 sigma = 0.1;
 k0 = 25;
 
-# Normalize the custom wave function and get the cn's
+# Normalize the custom wave function
 fun = np.exp(-1/2 * (x-x0)**2/sigma**2) * np.exp(-1j*k0*x)
 
 A = 1/np.sqrt(np.trapz(np.abs(fun)**2, x = x))
 
 fun = A * fun
 
-cn = getcn(x, fun)
+# Initialize the positive energies
+pos.findEnergies(200)
+
+# Get the cn's
+cn = getcn(x, fun, n=200)
 
 # Check normalization
 
