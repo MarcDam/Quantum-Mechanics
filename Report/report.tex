@@ -218,6 +218,68 @@ which has the solution
 \end{equation}
 For even solutions we have $C = 0$ and for odd solutions we have $D = 0$. To determine the allowed energies as well as $C$ and $D$ we have to consider the even and odd solutions separately.
 
+The even stationary wave function is given by
+\begin{equation}
+\psi(x) = \begin{cases} 0 & x \geq b \\
+                        A \sinh \left(\kappa (x - b) \right) & a < x < b \\
+                        D \cos (l x) & 0 \leq x \leq a \\
+                        \psi(-x) & x < 0
+\end{cases}.
+\end{equation}
+Continuity in $x = a$ gives us that
+\begin{equation}
+A \sinh \left( \kappa (a - b) \right) = D \cos (l a) \label{eq:negEven1}
+\end{equation}
+from which we determine that
+\begin{equation}
+D = \frac{\sinh \left( \kappa (a - b) \right)}{\cos (l a)} A.
+\end{equation}
+Continuity of $\psi'(x)$ in $x = a$ gives us that
+\begin{equation}
+\kappa A \cosh \left( \kappa (a - b) \right) = - l D \sin (l a). \label{eq:negEven2}
+\end{equation}
+By dividing equation~\eqref{eq:negEven1} by equation~\eqref{eq:negEven2} it follows that
+\begin{equation}
+\frac{1}{\kappa} \tanh \left( \kappa (a - b) \right) = - \frac{1}{l \tan (l a)}. \label{eq:negEvenDiv}
+\end{equation}
+Letting $z = l a$ and $z_0 = \frac{a}{\hbar} \sqrt{2 m V_0}$ we see that $\kappa a = \sqrt{z_0^2 - z^2}$ and thus equation~\eqref{eq:negEvenDiv} becomes
+\begin{equation}
+\frac{1}{\sqrt{z_0^2 - z^2}} \tanh \left( \sqrt{z_0^2 - z^2} \left(1 - \frac{b}{a} \right) \right) = - \frac{1}{z \tan z}
+\end{equation}
+which we rearrange into
+\begin{equation}
+z \tan z \tanh \left( \sqrt{z_0^2 - z^2} \left( 1 - \frac{b}{a} \right) \right) + \sqrt{z_0^2 - z^2} = 0. \label{eq:negEvenEnergies}
+\end{equation}
+Equation~\eqref{eq:negEvenEnergies} determines the allowed negative energies for the even stationary wave functions. Now all that remains is to determine the normalization constant $A$. We do this by integration
+\begin{align}
+1 &= 2 A^2 \left( \int_a^b \left(\sinh \left( \kappa (x - b) \right) \right)^2 \mathrm{d}x + \int_0^a \left( \frac{\sinh \left(\kappa (a - b) \right)}{\cos (l a)} \right)^2 \left( \cos (lx) \right)^2 \mathrm{d} x \right) \\
+  &= A^2 \left( (a - b) - \frac{\sinh \left( 2 \kappa (a - b) \right)}{2 \kappa}  + \left( \frac{\sinh \left(\kappa (a - b) \right)}{\cos (la)} \right)^2 \left(a + \frac{\sin(2 a l)}{2 l} \right) \right)
+\end{align}
+from which we find that
+\begin{equation}
+A = \frac{1}{\sqrt{\left( (a - b) - \frac{\sinh \left( 2 \kappa (a - b) \right)}{2 \kappa}  + \left( \frac{\sinh \left(\kappa (a - b) \right)}{\cos (la)} \right)^2 \left(a + \frac{\sin(2 a l)}{2 l} \right) \right)}}.
+\end{equation}
+Using similar ideas for the odd stationary wave function
+\begin{equation}
+\psi(x) = \begin{cases} 0 & x \geq b \\
+                        A \sinh \left(\kappa (x - b) \right) & a < x < b \\
+                        C \sin (l x) & 0 \leq x \leq a \\
+                        -\psi(-x) & x < 0
+\end{cases},
+\end{equation}
+we can find that
+\begin{align}
+C &= \frac{\sinh \left( \kappa (a - b) \right)}{\sin (l a)} A, \\
+A &= \frac{1}{\sqrt{\left( (a - b) - \frac{\sinh \left( 2 \kappa (a - b) \right)}{2 \kappa}  + \left( \frac{\sinh \left(\kappa (a - b) \right)}{\sin (la)} \right)^2 \left(a - \frac{\sin(2 a l)}{2 l} \right) \right)}},
+\end{align}
+and that the equation which determines the allowed energies is
+\begin{equation}
+\frac{z}{\tan z} \tanh \left( \sqrt{z_0^2 - z^2} \left( 1 - \frac{b}{a} \right) \right) - \sqrt{z_0^2 - z^2} = 0. \label{eq:negOddEnergies}
+\end{equation}
+
+\subsubsection{States with Positive Energy}
+
+
 \section{Quantum Mechanics in Reduced Units}
 When doing simulations we want to work with physical quantities in reduced units. We do this for two reasons: We don't have to keep track of the units and quantities in reduced units tend to be of a reasonable order of magnitude.
 
