@@ -60,7 +60,7 @@ This report uses numerics to study a Gaussian wave package in an infinite square
 \tableofcontents
 
 \section{Introduction}
-In this report we will study two different potentials: The infinite square well and the finite square well inside an infinite square well. The infinite square well corresponds to a particle trapped in a box and is an idealized model of an electron trapped in a long organic molecule e.g. $\beta$-carotene. The finite square well is interesting to study since it is possible to find a bound particle outside the well. This differs from the classical behavior where a bound particle can only be found inside the well. The finite square well potential is shown in figure~\ref{fig:finiteSquareWell}. For a figure of the infinite square well just imagine figure~\ref{fig:finiteSquareWell} with inifinitely tall walls.
+In this report we will study two potentials: The infinite square well and the finite square well inside an infinite square well. The infinite square well corresponds to a particle trapped in a box and is an idealized model of an electron trapped in a long organic molecule e.g. $\beta$-carotene. The finite square well is interesting to study since it is possible to find a bound particle outside the well. This differs from the classical behavior where a bound particle can only be found inside the well. The finite square well potential is shown in figure~\ref{fig:finiteSquareWell} and the well in a well potential is shown in figure~\ref{fig:wellInWell}. For a figure of the infinite square well just imagine figure~\ref{fig:finiteSquareWell} with inifinitely tall walls.
 
 \section{Schrödinger's Equation and its Solutions}
 The most fundamental equation in quantum mechanics is the Schrödinger equation. It governs which functions are worthy of study, that is, which functions are allowed wave functions in a given potential. The time-dependent Schrödinger equation in one dimension is
@@ -78,7 +78,7 @@ The wave functions which are solutions to the time-independent Schrödinger euqa
 \subsection{The Infinite Square Well}
 \begin{figure}
 \includegraphics[width=\textwidth]{../Python/ISW_stationarySolutions.png}
-\caption{Wave Functions in the Infinite Square well}
+\caption{Stationary Wave Functions in the Infinite Square Well}
 \label{fig:infiniteSquareWell}
 \end{figure}
 
@@ -87,7 +87,7 @@ In the infinite square well the potential is given by
 V = \begin{cases} 0, & 0 \leq x \leq a \\
                   \infty, & \text{otherwise} \end{cases}.
 \end{equation}
-Outside the well the wave function is $0$ and inside the well it is given by
+Outside the well the stationary wave functions are $0$ and inside the well they are given by
 \begin{equation}
 \psi_n(x) = \sqrt{\frac{2}{a}} \sin \left( \frac{n \pi}{a} x \right),
 \end{equation}
@@ -100,7 +100,7 @@ Some of the wave functions are shown in figure~\ref{fig:infiniteSquareWell}.
 \subsection{The Finite Square Well}
 \begin{figure}
 \includegraphics[width=\textwidth]{../Python/FSW_boundStates.png}
-\caption{Wave Functions in the Finite Square well}
+\caption{Stationary Wave Functions in the Finite Square Well}
 \label{fig:finiteSquareWell}
 \end{figure}
 
@@ -111,7 +111,7 @@ V = \begin{cases} -V_0, & -a \leq x \leq a \\
 \end{equation}
 where $V_0$ is a positive number.
 
-In the finite square well the wave function can be found both inside and outside the well. We also have both bound ($E < 0$) and scattering states ($E > 0$) in the finite square well.
+In the finite square well the stationary wave functions can be found both inside and outside the well. We also have both bound ($E < 0$) and scattering states ($E > 0$) in the finite square well.
 
 The bound states come in two flavors: Even and odd. The even wave functions are given by
 \begin{equation}
@@ -137,7 +137,7 @@ Likewise the allowed energies for the odd wave functions can be found by solving
 \begin{equation}
 - \cot z = \sqrt{\left(\frac{z_0}{z} \right)^2 - 1}. \label{eq:oddEnergy}
 \end{equation}
-Some of the wave functions for the bound states are shown in figure~\ref{fig:finiteSquareWell}.
+Some of the stationary wave functions for the bound states are shown in figure~\ref{fig:finiteSquareWell}.
 
 The wave functions for the scattering states are given by
 \begin{equation}
@@ -153,7 +153,70 @@ D &= \left( \cos la - i \frac{k}{l} \sin la \right) e^{ika} F,& F &= \frac{e^{-2
 \end{align*}
 For the scattering states we observe reflection and transmission through the well wall.
 
-The energy spectrum of the scattering states is continuous and thus any positive energy is allowed.
+The energy spectrum of the scattering states is continuous and thus any positive energy is allowed. Since creating wave packages in the finite square well involves solving an inverse integral problem which is beyond the scope of this report we will instead consider a similar potential where the finite square well is sitting inside the infinite square well.
+
+\subsection{The Finite Square Well in an Infinite Square well}
+\begin{figure}
+\includegraphics[width=\textwidth]{../Python/WiW_stationarySolutions.png}
+\caption{Stationary Wave Functions in the Finite Square Well Inside an Infinite Square Well}
+\label{fig:wellInWell}
+\end{figure}
+
+In the finite square well in an infinite square well the potential is given by
+\begin{equation}
+V = \begin{cases} \infty & x > b \\
+                  0 & a < x < b \\
+                  - V_0 & -a < x < a \\
+                  0 & -b < x < -a \\
+                  \infty & x < -b
+\end{cases},
+\end{equation}
+where $a$ is the distance from $0$ to the edge of the finite square well and $b$ is the distance from $0$ to the edge of the infinite square well.
+
+Since this potential is not a standard textbook example we will solve the time independent Schrödinger equation instead of just listing the stationary wave functions.
+
+Because the potential is even we only have to consider stationary wave functions which are either even or odd. Hence we will only solve the time independent Schrödinger equation in the region $x > 0$.
+
+Outside the infinite square well ($\abs{x} > b$) the stationary wave functions are $0$. Inside the infinite square well we have to separate the solutions into two cases: $E < 0$ and $E > 0$. In this potential (as opposed to the finite square well) both states with $E < 0$ and $E > 0$ are bound states. We start with the case $E < 0$
+
+\subsubsection{States with Negative Energy}
+For $a < x < b$ the time independent Schrödinger equation is
+\begin{equation}
+- \frac{\hbar^2}{2 m} \pdiffn{\psi}{x}{2} = E \psi.
+\end{equation}
+If we let $\kappa = \frac{\sqrt{- 2 m E}}{\hbar}$ we can rewrite the above equation as
+\begin{equation}
+\pdiffn{\psi}{x}{2} = \kappa^2 \psi,
+\end{equation}
+which has the solution
+\begin{equation}
+\psi(x) = A' e^{\kappa (x - b)} + B' e^{- \kappa (x - b)}.
+\end{equation}
+The wave function has to be continuous in $x = b$ and therefore we have
+\begin{equation}
+0 = \psi(b) =  A' e^{\kappa (b - b)} + B' e^{- \kappa (b - b)} = A' + B' \Rightarrow A' = - B'.
+\end{equation}
+Thus for $a < x < b$ we have
+\begin{equation}
+\psi(x) = A' \left(e^{\kappa (x - b)} - e^{- \kappa (x - b)} \right).
+\end{equation}
+If we let $A = 2 A'$ and recall that $\frac{e^x - e^{-x}}{2} = \sinh(x)$ we get that for $a < x < b$ the stationary wave function is given by
+\begin{equation}
+\psi(x) = A \sinh \left(\kappa (x - b) \right).
+\end{equation}
+For $0 < x < a$ the time independent Schrödinger equation is
+\begin{equation}
+- \frac{\hbar^2}{2 m} \pdiffn{\psi}{x}{2} - V_0 \psi = E \psi.
+\end{equation}
+Introducing $l = \frac{\sqrt{2 m )(E + V_0)}}{\hbar}$ we can rewrite the above equation as
+\begin{equation}
+\pdiffn{\psi}{x}{2} = -l^2 \psi,
+\end{equation}
+which has the solution
+\begin{equation}
+\psi(x) = C \sin(l x) + D \cos(l x).
+\end{equation}
+For even solutions we have $C = 0$ and for odd solutions we have $D = 0$. To determine the allowed energies as well as $C$ and $D$ we have to consider the even and odd solutions separately.
 
 \section{Quantum Mechanics in Reduced Units}
 When doing simulations we want to work with physical quantities in reduced units. We do this for two reasons: We don't have to keep track of the units and quantities in reduced units tend to be of a reasonable order of magnitude.
