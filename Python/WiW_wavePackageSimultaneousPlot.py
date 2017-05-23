@@ -10,7 +10,7 @@ from WiW_Psi import *
 from WiW_getcn import *
 
 x = np.linspace(-3, 3, 2**12)
-t = np.linspace(0, 1, 2**14)
+t = np.linspace(0, 1, 2**12)
 
 # Wave package constants
 x0 = 2.5;
@@ -72,7 +72,7 @@ STDp = np.sqrt(Ep2 - Ep**2)
 print("Uncertainty principle holds: " + str((STDx*STDp >= 0.5).all()))
 
 # Calculate the momentum spectrum
-p = np.linspace(-60, 60, 2**9)
+p = np.linspace(-60, 60, 2**10)
 pdist = []
 
 for i in range(0, len(t)):
