@@ -455,7 +455,7 @@ f'(x_n) = \frac{f(x_n) - f(x_{n - 1})}{x_n - x_{n - 1}}.
 For plotting we have used the Matplotlib package. We have also used the Matplotlib package for producing the animated videos of the plots.
 
 \subsection{Root Finding}
-When working with the finite square well we need to do numerical root finding to determine the allowed energies. We use Newton's method to determine the solutions to equation~\eqref{eq:evenEnergy} and equation~\eqref{eq:oddEnergy}.
+When working with the finite square well we need to do numerical root finding to determine the allowed energies. We use Newton's method to determine the solutions to equation~\eqref{eq:negEvenEnergies}, \eqref{eq:negOddEnergies}, \eqref{eq:posEvenEnergies} and \eqref{eq:posOddEnergies}.
 
 Newton's method works by repeatedly estimating the root using a linear approximation of the function we wish to find the root of. As always we use a first order Taylor expansion to find a linear approximation. Starting from an initial guess of $x_0$ this gives us the equation
 \begin{equation}
@@ -537,7 +537,7 @@ We have in this report seen how many of the peculiarities of quantum mechanics c
 \section{Appendix: Code Snippets}
 This appendix includes some excerpts from our code.
 \subsection{Newton's Method} \label{app:newton}
-We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows:
+We have implemented Newton's method in our script used for finding the allowed energy levels of the stationary states in the finite square well as follows (the principle is the same for the finite square well inside an infinite square well though the guessing is more complicated):
 \lstinputlisting[firstnumber=53,firstline=53,lastline=73]{../Python/FSW_psi_n_bound.py}
 Here \lstinline{hfuns} is a previously defined list of functions which correspond to equations \eqref{eq:evenEnergy} and \eqref{eq:oddEnergy} with the RHS subtracted from the LHS. The derivatives \lstinline{dhdzfuns} are calculated symbolically since the numerical derivative was erroneous near the singularities of $\tan z$ and $\cot z$. As initial guesses we use values slightly below the singularities of $\tan z$ and $\cot z$ respectively.
 
